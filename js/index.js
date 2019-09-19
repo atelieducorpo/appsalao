@@ -23,7 +23,7 @@ var app = {
 
 /* 'Control' do menu principal */
 function toggleMenu(){
-    if( $('nav').attr('class') == 'slideOn' ){ // Se o menu está aparecendo...
+    if( $('nav').attr('class') == 'slideOn'){ // Se o menu está aparecendo...
         $('nav').attr('class', function(){ // Altera a classe do menu
             $('#menuModal').fadeOut('fast'); // Esconde fundo do menu com fade
             $('#menu').removeClass('rotateMenuBtn'); // Remove classe que rotaciona o botão
@@ -36,16 +36,25 @@ function toggleMenu(){
             return 'slideOn'; // Aplica classe que desloca o menu para a direita, exibindo-o
         });
     }
+    return false;
 }
 
 // Construtor de eventos do App
 function runApp(){
+
+    // Ocultar Splash Screen 500 milissegundos após iniciar App
+    setTimeout(function(){
+        $('#splashScreen').fadeOut('slow'); // Oculta com fade
+    }, 500);    
 
     // Monitorando click/touch no botão do menu principal
     $(document).on('click', '#menu', toggleMenu);
 
     // Monitorando click/touch no 'menuModal'
     $(document).on('click', '#menuModal', toggleMenu);
+
+    // Monitorando links para virar rotas
+    $(document).on('click', 'a', routing);
 
 }
 
