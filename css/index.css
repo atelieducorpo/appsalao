@@ -1,22 +1,22 @@
 /* FOLHAS DE ESTILO DO TEMA DO APP */
 
-/* Variáveis de controle do tema  */
+/* VariĆ�veis de controle do tema  */
 :root {
-    --font-face-default: sans-serif; /* Fonte padrão do app */
-    --font-size-default: 16px; /* Tamanho da fonte não menor 12px */
+    --font-face-default: sans-serif; /* Fonte padrĆ£o do app */
+    --font-size-default: 16px; /* Tamanho da fonte nĆ£o menor 12px */
     --font-color: #444; /* Cor dos textos */
     --body-bg: url('../img/backrground03.jpg') fixed #ddd; /* Imagem ou cor de fundo */
-    --link-color: rgb(70, 130, 180); /* Cor padrão dos links */
+    --link-color: rgb(70, 130, 180); /* Cor padrĆ£o dos links */
     --link-color-hover: rgb(255, 69, 0); /* Cor dos links com 'hover' */
-    --header-bg: #00465c; /* Cor do fundo do cabeçalho */
-    --header-font-color: #fff; /* Cor do título do cabeçalho */
-    --header-link-font-color: #c7e2eb; /* Cor dos links do cabeçalho */
+    --header-bg: #00465c; /* Cor do fundo do cabeĆ§alho */
+    --header-font-color: #fff; /* Cor do tĆ­tulo do cabeĆ§alho */
+    --header-link-font-color: #c7e2eb; /* Cor dos links do cabeĆ§alho */
     --menu-bg-color: #006280; /* cor de fundo do menu */
     --menu-font-color: #eee; /* Cor do texto do menu */
     --menu-bg-color-hover: #ddd; /* Cor do fundo do menu em hover/click/touch */
     --menu-font-color-hover: #006280; /* Cor do texto do menu em hover/click/touch */
     --menu-hr: 1px dotted #ddd; /* Estilo de linha do separador do menu */
-    --main-bg: rgba(255, 255, 255, .7); /* Cor de fundo do conteúdo, com transparência */
+    --main-bg: rgba(255, 255, 255, .7); /* Cor de fundo do conteĆŗdo, com transparĆŖncia */
 
     /* Splash Screen */
     --splash-color: #000;
@@ -26,6 +26,10 @@
     /* Logo com font Awesome */
     --logo-border: -1px -1px #fff, -1px 1px #fff, 1px -1px #fff, 1px 1px #fff; /* Borda do logo */
     --logo-color: #00465c; /* Cor do logo */
+
+    /* Tema escuro */
+    --main-bg-dark: rgba(0,0,0,.8);
+    --font-color-dark: #eee;
 }
 
 /* CSS reset */
@@ -58,7 +62,7 @@ a:hover {
     color: var(--link-color-hover);
 }
 
-/* Toda a página */
+/* Toda a pĆ�gina */
 #wrap {
     height: 100%;
     overflow: auto;
@@ -89,7 +93,7 @@ header h1 {
     align-items: center;
     justify-content: center;
 }
-header h1 i { /* Estilos do logo (usando ícone da Font Awesome) */
+header h1 i { /* Estilos do logo (usando Ć­cone da Font Awesome) */
     text-shadow: var(--logo-border);
     color: var(--logo-color);
     margin-right: .5rem;
@@ -106,10 +110,10 @@ header a {
     border-radius: 50%;
 }
 header a:hover {
-    color: #c7e2eb; /* Cor dos links do cabeçalho em hover */
+    color: #c7e2eb; /* Cor dos links do cabeĆ§alho em hover */
 }
 
-/* Anima botão do menu */
+/* Anima botĆ£o do menu */
 .rotateMenuBtn {
     transform: rotate(-270deg);
 }
@@ -122,7 +126,7 @@ nav {
     position: fixed;
     z-index: 100;
     top: 3.5rem;
-    left: -468px; /* Esconde menu na inicialização do App */
+    left: -468px; /* Esconde menu na inicializaĆ§Ć£o do App */
 }
 nav a {
     color: var(--menu-font-color);
@@ -138,7 +142,7 @@ nav hr {
     border-bottom: var(--menu-hr);
 }
 
-/* Animação do menu principal */
+/* AnimaĆ§Ć£o do menu principal */
 .slideOn {
     animation: slideOn 0.5s forwards;
 }
@@ -166,11 +170,17 @@ nav hr {
     display: none;
 }
 
-/* conteúdo da página */
+/* conteĆŗdo da pĆ�gina */
 main {
     padding-top: 3.5rem;
     flex-grow: 1;
     background: var(--main-bg);
+}
+main .pageWrap {
+    padding: 0 1rem 1rem 1rem;
+}
+main .pageWrap > h3 {
+    margin-top: .5rem;
 }
 
 /* Splash Screen */
@@ -205,7 +215,7 @@ main {
     padding-top: 1rem;
 }
 
-/* Barra superior das páginas */
+/* Barra superior das pĆ�ginas */
 main > h2 {
     margin: 0;
     background: var(--header-bg);
@@ -219,4 +229,21 @@ main > h2 {
     position: absolute;
     top: 0;
     width: 100%;
+}
+
+/* Tema claro */
+.light {
+    background: var(--main-bg);
+    color: var(--font-color);
+}
+
+/* Tema escuro */
+.dark {
+    background: var(--main-bg-dark);
+    color: var(--font-color-dark);
+}
+
+/* Estilos genĆ©ricos */
+.text-center {
+    text-align: center;
 }

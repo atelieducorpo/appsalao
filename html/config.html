@@ -2,8 +2,34 @@
     <i class="fas fa-fw fa-arrow-left"></i>
     <span>Configurações</span>    
 </h2>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo sed risus quis mattis. Donec suscipit est diam, facilisis ullamcorper purus pretium et. Quisque sed sapien iaculis, dignissim velit non, dignissim purus. Suspendisse cursus ultrices enim sit amet feugiat. Donec vulputate velit vel purus fermentum fringilla. Aliquam eu molestie erat. Etiam interdum leo sed finibus pretium. Donec pulvinar quis lacus sed ornare. Ut iaculis ex a vehicula ullamcorper. Morbi convallis at neque eu sollicitudin.</p>
-
-<script>
-$('header').slideUp('fast');
-</script>
+<div class="pageWrap">
+        <h3>Tema do App</h3>
+        <div class="text-center">
+            <label><input type="radio" name="temaBtn" id="temaLight" value="light"> <i class="far fa-fw fa-lightbulb"></i> Claro</label>
+            &nbsp; &nbsp;
+            <label><input type="radio" name="temaBtn" id="temaDark" value="dark"> <i class="fas fa-fw fa-lightbulb"></i> Escuro</label>
+        </div>
+    </div>
+    
+    <script>
+    // Oculta barra superior
+    $('header').slideUp('fast');
+    
+    // Monitora botÃµes do tema
+    $(document).on('click', 'input[name=temaBtn]', mudaTema);
+    
+    // Obter configuraÃ§Ãµes do armazenamento local
+    var store = window.localStorage; // ConexÃ£o com armazenamento local
+    var configData = store.getItem('config'); // Ler as configuraÃ§Ãµes do armazenamento local 
+    var config = JSON.parse(configData); // Transforma JSON em objeto
+    $('input[value=' + config.tema + ']').attr('checked', true); // Marca o campo com o tema correto
+    
+    // Troca tema
+    function mudaTema(){
+        var tema = $(this).val(); // ObtÃ©m o valor do tema selecionado
+        $('main').attr('class', tema); // Aplica a classe do tema selecionado
+        config.tema = tema; // Altera o tema na configuraÃ§Ã£o
+        store.setItem('config', JSON.stringify(config)); // Grava nova configuraÃ§Ã£o
+    }
+    
+    </script>
