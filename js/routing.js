@@ -6,19 +6,18 @@ function routing(){
     var href = $(this).attr('href');
     var target = $(this).attr('target');
 
-    console.log(href, ' / ', target);
+    //console.log(href, ' / ', target);
 
     if(target == '_blank') return true;
     else if(target == '_none') return false;
     else {
         var page = 'html/' + href.substr(1) + '.html';
-        console.log(page);
+        //console.log(page);
         $.get(page, function(dataReturn){
             $('main').html(dataReturn);
-            toggleMenu();
+            menuOff();
         });
     }
-
 
     return false;
 }

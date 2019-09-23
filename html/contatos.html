@@ -1,2 +1,226 @@
-<h2>Contatos</h2>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo sed risus quis mattis. Donec suscipit est diam, facilisis ullamcorper purus pretium et. Quisque sed sapien iaculis, dignissim velit non, dignissim purus. Suspendisse cursus ultrices enim sit amet feugiat. Donec vulputate velit vel purus fermentum fringilla. Aliquam eu molestie erat. Etiam interdum leo sed finibus pretium. Donec pulvinar quis lacus sed ornare. Ut iaculis ex a vehicula ullamcorper. Morbi convallis at neque eu sollicitudin.</p>
+<style>
+.pageWrap label {
+    display: block;
+    padding: 0 1rem .2rem .5rem;
+}
+.pageWrap input, .pageWrap textarea, .pageWrap button {
+    font-family: inherit;
+    font-size: inherit;
+    border: 1px solid #ccc;
+    padding: .3rem .5rem;
+    width: 100%;
+    border-radius: .3rem;
+}
+.pageWrap textarea {
+    height: 5rem;
+}
+.pageWrap button {
+    border: 0;
+}
+#msgErroBox, #msgFb {
+    display: none;
+}
+#msgErro {
+    background: #ffff00;
+    color: darkred;
+    font-size: 80%;
+    display: table;
+    margin: auto;
+    margin-top: 1rem;
+    padding: .5rem;
+    border-radius: .3rem;
+}
+#msgErro > span {
+    display: block;
+    float: right;
+    cursor: pointer;
+    border: 1px solid grey;
+    border-radius: .2rem;
+    background: #fff;
+}
+#msgErro > span:hover {
+    background: red;
+    color: #fff;
+}
+#msgErro > h3 {
+    margin: 0;
+}
+</style>
+
+<h2>
+    <a href="#home"><i class="fas fa-fw fa-arrow-left"></i></a>
+    <span>Faça Contato</span>    
+</h2>
+<div class="pageWrap">
+
+<div id="msgFb"></div>
+
+<form action="#contatos" method="post" id="contatos">
+    Preencha o formulário abaixo para entrar em contato com a equipe do 'NoXiXiNaRua'.
+
+<div id="msgErroBox">
+    <div id="msgErro"></div>
+</div>
+
+<p>
+    <label for="nome">Nome:</label>
+    <input type="text" name="nome" id="nome" placeholder="Seu nome completo.">
+</p>
+<p>
+    <label for="email">E-mail:</label>
+    <input type="text" name="email" id="email" placeholder="Seu e-mail principal.">
+</p>
+<p>
+    <label for="assunto">Assunto:</label>
+    <input type="text" name="assunto" id="assunto" placeholder="Assunto do seu contato.">
+</p>
+<p>
+    <label for="mensagem">Mensagem:</label>
+    <textarea name="mensagem" id="mensagem" placeholder="Sua mensagem."></textarea>
+</p>
+<p>
+    <button class="btnDefault" type="submit" name="enviar" id="enviar">Enviar</button>
+</p>
+</form>
+
+</div>
+
+<script>
+// Oculta barra superior
+$('header').slideUp('fast');
+
+// Pré-preenche nome e e-mail de usuário, se logado
+user = conf.get('user');
+if(user.email != ''){
+    $('#nome').val(user.name);
+    $('#email').val(user.email);
+}
+
+// Monitorando envio do formulário
+$(document).on('submit', '#contatos', processaForm);
+
+// Monitorando botão fechar box
+$(document).on('click', '#msgErro > span', closeBox);
+
+// Processamento do formulário
+function processaForm(){
+
+    // Variável que armazena as mensagens de erro
+    var erro = '';
+
+    // Variável que contém o feedback do erro
+    var msg = '';
+
+    // Obtendo os valores dos campos já sanitizados
+    var formNome = sanitiza($('#nome').val());
+    var formEmail = sanitiza($('#email').val());
+    var formAssunto = sanitiza($('#assunto').val());
+    var formMensagem = sanitiza($('#mensagem').val());
+
+    // Atualizando campos com valores sanitizados
+    $('#nome').val(formNome);
+    $('#email').val(formEmail);
+    $('#assunto').val(formAssunto);
+    $('#mensagem').val(formMensagem);
+
+    // Validando nome
+    if (formNome.length < 3) {
+        erro += '<li>Seu nome está muito curto.</li>';
+    } else if (!soLetras(formNome)) {
+        erro += '<li>Seu nome tem caracteres inválidos.</li>';
+    }
+
+    // Validando e-mail
+    if (formEmail.indexOf('@') < 1) {
+        erro += '<li>Seu e-mail não é válido.</li>';
+    } else if (!isMail(formEmail)) {
+        erro += '<li>Seu e-mail não é válido.</li>';
+    }
+    
+    // Validando assunto
+    if (formAssunto.length < 5) {
+        erro += '<li>O assunto está muito curto.</li>';
+    }
+    
+    // Validando mensagem
+    if (formMensagem.length < 5) {
+        erro += '<li>A mensagem está muito curta.</li>';
+    }
+    
+    // Se não ocorreram erros...
+    if (erro == '') {
+
+        // Enviando para o Firebase
+        $FB.db.collection("contatos").add({
+            data: agoraDb(),
+            nome: formNome,
+            email: formEmail,
+            assunto: formAssunto,
+            mensagem: formMensagem,
+            status: 'recebido'
+        })
+        .then(function(docRef) { // Se gravou no Firebase
+
+            // Quebra nome do remetente pelos espaços
+            nome = formNome.split(' ');
+            
+            msg = `
+<h3>Olá ${nome[0]}!</h3>
+<p>Seu contato foi enviado para a equipe do NoXiXiNarua.</p>
+Obrigado...
+            `;
+            $('#msgFb').html(msg);
+            $('#contatos').hide('fast', function(){
+                $('#msgFb').show('fast');
+            });        
+        })
+        .catch(function(error) {
+            console.error("Erro ao atualizar documento: ", error);
+        });        
+
+    // Se ocorreram erros...	
+    } else {
+        // Exibe os erros na página
+        msg = `
+<span><i class="fas fa-fw fa-times"></i></span>
+<h3>Ooops!</h3>
+<p>Ocorreram erros ao tentar enviar o seu contato:</p>
+<ul>${erro}</ul>
+Por favor, corrija os erros e tente novamente.
+`;
+  
+        $('#msgErro').html(msg);
+        $('#msgErroBox').show('fast');
+    }
+    
+    // De qualquer forma, não faça nada após enviar o formulário
+    return false;
+}
+
+function closeBox(){
+    $('#msgErroBox').hide('fast');
+}
+
+$(document).on('click', '#contatoTeste', function(){
+
+    $FB.db.collection("contatos").add({
+        data: agoraDb(),
+        nome: "Dilermano da Silva",
+        email: "dierl@mano.com",
+        assunto: 'Teste de Dilermano',
+        mensagem: 'Blá blá blá blá blá blá blá blá.',
+        status: 'recebido'
+    })
+    .then(function(docRef) {
+        console.log("Documento atualizado com o ID: ", docRef.id);
+    })
+    .catch(function(error) {
+        console.error("Erro ao atualizar documento: ", error);
+    });
+
+
+
+});
+
+
+</script>

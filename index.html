@@ -10,12 +10,16 @@
 </head>
 <body>
 
+<div id="splashScreen">
+    <div><i class="fas fa-fw fa-toilet"></i><span>NoXiXiNarua</span></div>
+</div>
+
 <div id="wrap">
 
 <header>
     <a href="#menu" id="menu" target="_none"><i class="fas fa-fw  fa-ellipsis-v"></i></a>
     <h1><i class="fas fa-fw fa-toilet"></i><span>NoXiXiNaRua</span></h1>
-    <a href="#config" id="config"><i class="fas fa-fw  fa-cog"></i></a>
+    <a href="#login" id="headerUser" target="_none"><img src="img/nouser.png" alt="Fazer login / Entrar"></a>
 </header>
 <nav>
     <a href="#home"><i class="fas fa-fw fa-toilet"></i> Início</a>
@@ -24,32 +28,26 @@
     <a href="#locais"><i class="fas fa-fw fa-map-marked-alt"></i> Localizações</a>
     <a href="#contatos"><i class="fas fa-fw fa-comments"></i> Faça Contato</a>
     <hr>
-    <a href="#login"><i class="fas fa-fw fa-sign-in-alt"></i> Login / Entrar</a>
-    <a href="#logout"><i class="fas fa-fw fa-sign-out-alt"></i> Logout / Sair</a>
+    <span id="menuProfile"><a href="https://profiles.google.com/" target="_blank"><img src="img/nouser.png" alt="Fazer login / entrar"><span title="Fazer login / entrar">Logue-se</span></a></span>
+    <a href="#login" id="menuLoginout" target="_none"><i class="fas fa-fw fa-sign-in-alt"></i> Login / Entrar</a>
     <a href="#privacidade"><i class="fas fa-fw fa-user-lock"></i> Sua Privacidade</a>
     <hr>
     <a href="#config"><i class="fas fa-fw fa-cog"></i> Configurações</a>
     <a href="#sobre"><i class="fas fa-fw fa-info-circle"></i> Sobre</a>
     <a href="#ajuda"><i class="fas fa-fw fa-question-circle"></i> Ajuda</a>
 </nav>
-<main>
-    -x-x-x-x-x-x-x-
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo sed risus quis mattis. Donec suscipit est diam, facilisis ullamcorper purus pretium et. Quisque sed sapien iaculis, dignissim velit non, dignissim purus. Suspendisse cursus ultrices enim sit amet feugiat. Donec vulputate velit vel purus fermentum fringilla. Aliquam eu molestie erat. Etiam interdum leo sed finibus pretium. Donec pulvinar quis lacus sed ornare. Ut iaculis ex a vehicula ullamcorper. Morbi convallis at neque eu sollicitudin.</p>
-    <a href="http://luferat.net" target="_blank">Luferat</a>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo sed risus quis mattis. Donec suscipit est diam, facilisis ullamcorper purus pretium et. Quisque sed sapien iaculis, dignissim velit non, dignissim purus. Suspendisse cursus ultrices enim sit amet feugiat. Donec vulputate velit vel purus fermentum fringilla. Aliquam eu molestie erat. Etiam interdum leo sed finibus pretium. Donec pulvinar quis lacus sed ornare. Ut iaculis ex a vehicula ullamcorper. Morbi convallis at neque eu sollicitudin.</p>
-    -x-x-x-x-x-x-x-
-</main>
+<main></main>
 
 </div>    
 
 <div id="menuModal" class="modal"></div>
-<div id="splashScreen">
-    <div>
-        <i class="fas fa-fw fa-toilet"></i>
-        <span>NoXiXiNarua</span>
-    </div>
-</div>
+<script src="js/_config.js"></script>
 <script src="js/jquery.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.6.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.6.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.6.2/firebase-firestore.js"></script>
+<!-- Outras API -->
+<script src="js/functions.js"></script>
 <script src="js/routing.js"></script>
 <script src="js/index.js"></script>
 </body>

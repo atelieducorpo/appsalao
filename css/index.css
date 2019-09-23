@@ -1,22 +1,22 @@
 /* FOLHAS DE ESTILO DO TEMA DO APP */
 
-/* VariĆ�veis de controle do tema  */
+/* Variáveis de controle do tema  */
 :root {
-    --font-face-default: sans-serif; /* Fonte padrĆ£o do app */
-    --font-size-default: 16px; /* Tamanho da fonte nĆ£o menor 12px */
+    --font-face-default: sans-serif; /* Fonte padrão do app */
+    --font-size-default: 16px; /* Tamanho da fonte não menor 12px */
     --font-color: #444; /* Cor dos textos */
     --body-bg: url('../img/backrground03.jpg') fixed #ddd; /* Imagem ou cor de fundo */
-    --link-color: rgb(70, 130, 180); /* Cor padrĆ£o dos links */
+    --link-color: rgb(70, 130, 180); /* Cor padrão dos links */
     --link-color-hover: rgb(255, 69, 0); /* Cor dos links com 'hover' */
-    --header-bg: #00465c; /* Cor do fundo do cabeĆ§alho */
-    --header-font-color: #fff; /* Cor do tĆ­tulo do cabeĆ§alho */
-    --header-link-font-color: #c7e2eb; /* Cor dos links do cabeĆ§alho */
+    --header-bg: #00465c; /* Cor do fundo do cabeçalho */
+    --header-font-color: #fff; /* Cor do título do cabeçalho */
+    --header-link-font-color: #c7e2eb; /* Cor dos links do cabeçalho */
     --menu-bg-color: #006280; /* cor de fundo do menu */
     --menu-font-color: #eee; /* Cor do texto do menu */
     --menu-bg-color-hover: #ddd; /* Cor do fundo do menu em hover/click/touch */
     --menu-font-color-hover: #006280; /* Cor do texto do menu em hover/click/touch */
     --menu-hr: 1px dotted #ddd; /* Estilo de linha do separador do menu */
-    --main-bg: rgba(255, 255, 255, .7); /* Cor de fundo do conteĆŗdo, com transparĆŖncia */
+    --main-bg: rgba(255, 255, 255, .7); /* Cor de fundo do conteúdo, com transparência */
 
     /* Splash Screen */
     --splash-color: #000;
@@ -62,7 +62,7 @@ a:hover {
     color: var(--link-color-hover);
 }
 
-/* Toda a pĆ�gina */
+/* Toda a página */
 #wrap {
     height: 100%;
     overflow: auto;
@@ -93,7 +93,7 @@ header h1 {
     align-items: center;
     justify-content: center;
 }
-header h1 i { /* Estilos do logo (usando Ć­cone da Font Awesome) */
+header h1 i { /* Estilos do logo (usando ícone da Font Awesome) */
     text-shadow: var(--logo-border);
     color: var(--logo-color);
     margin-right: .5rem;
@@ -110,10 +110,15 @@ header a {
     border-radius: 50%;
 }
 header a:hover {
-    color: #c7e2eb; /* Cor dos links do cabeĆ§alho em hover */
+    color: #c7e2eb; /* Cor dos links do cabeçalho em hover */
+}
+#headerUser img {
+    width: 2.5rem;
+    height: auto;
+    border-radius: 50%;
 }
 
-/* Anima botĆ£o do menu */
+/* Anima botão do menu */
 .rotateMenuBtn {
     transform: rotate(-270deg);
 }
@@ -126,7 +131,7 @@ nav {
     position: fixed;
     z-index: 100;
     top: 3.5rem;
-    left: -468px; /* Esconde menu na inicializaĆ§Ć£o do App */
+    left: -468px; /* Esconde menu na inicialização do App */
 }
 nav a {
     color: var(--menu-font-color);
@@ -141,8 +146,24 @@ nav hr {
     margin: 0;
     border-bottom: var(--menu-hr);
 }
+#menuProfile a {
+    display: flex;
+    align-items: center;
+    padding-top: 0rem;
+    padding-bottom: 0rem;
+    padding-left: 0.5rem;
+}
+#menuProfile img {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    margin: .5rem;
+}
+#menuProfile, #menuLogout {
+    display: none;
+}
 
-/* AnimaĆ§Ć£o do menu principal */
+/* Animação do menu principal */
 .slideOn {
     animation: slideOn 0.5s forwards;
 }
@@ -170,7 +191,7 @@ nav hr {
     display: none;
 }
 
-/* conteĆŗdo da pĆ�gina */
+/* conteúdo da página */
 main {
     padding-top: 3.5rem;
     flex-grow: 1;
@@ -215,7 +236,7 @@ main .pageWrap > h3 {
     padding-top: 1rem;
 }
 
-/* Barra superior das pĆ�ginas */
+/* Barra superior das páginas */
 main > h2 {
     margin: 0;
     background: var(--header-bg);
@@ -230,6 +251,10 @@ main > h2 {
     top: 0;
     width: 100%;
 }
+main > h2 a, main > h2 a:hover {
+    color: var(--header-font-color);
+    font-weight: normal;
+}
 
 /* Tema claro */
 .light {
@@ -243,7 +268,29 @@ main > h2 {
     color: var(--font-color-dark);
 }
 
-/* Estilos genĆ©ricos */
+/* Estilos genéricos */
 .text-center {
     text-align: center;
+}
+.btnDefault {
+    margin: auto;
+    padding: .5rem 1rem;
+    background: linear-gradient(#00aaff, #002233);
+    color: #fff;
+    font-family: inherit;
+    font-size: inherit;
+    border: 0;
+    border-radius: .3rem;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+.btnDefault img {
+    width: 1.4rem;
+    height: auto;
+    margin-right: .5rem;
+}
+.btnDefault:hover {
+    background: linear-gradient(#cc0000, #330000);
+    color: #fff;
 }

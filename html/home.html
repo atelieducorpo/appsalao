@@ -1,7 +1,77 @@
-<h2>Página inicial</h2>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo sed risus quis mattis. Donec suscipit est diam, facilisis ullamcorper purus pretium et. Quisque sed sapien iaculis, dignissim velit non, dignissim purus. Suspendisse cursus ultrices enim sit amet feugiat. Donec vulputate velit vel purus fermentum fringilla. Aliquam eu molestie erat. Etiam interdum leo sed finibus pretium. Donec pulvinar quis lacus sed ornare. Ut iaculis ex a vehicula ullamcorper. Morbi convallis at neque eu sollicitudin.</p>
+<style>
+.pageWrap .row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: .5rem;
+}
+.pageWrap .col {
+    width: 50%;
+    text-align: center;
+    margin-top: .5rem;
+    padding: .5rem;
+}
+.pageWrap h4 {
+    margin: .4rem auto;
+}
+.pageWrap .box {
+    /* background: #efefef; */
+    margin: auto;
+}
+.pageWrap .row img {
+    display: block;
+    background: #eee;
+}
+.fakeImg {
+    width: 100%;
+    height: auto;
+    border-radius: .3rem;
+}
+.fakeTitle {
+    width: 100%;
+    height: 1.2rem;
+    margin: .5rem auto;
+}
+.fakeText {
+    width: 100%;
+    height: 3rem;
+}
+</style>
+
+<div class="pageWrap">
+    <div class="row">
+        <div class="col">
+            <div class="box">
+                <img src="img/1x1t.png" alt="Imagem Fake" class="fakeImg">
+                <img src="img/1x1t.png" alt="Imagem Fake" class="fakeTitle">
+                <img src="img/1x1t.png" alt="Imagem Fake" class="fakeText">
+            </div>
+        </div>
+        <div class="col">
+            <div class="box">
+                <img src="img/1x1t.png" alt="Imagem Fake" class="fakeImg">
+                <img src="img/1x1t.png" alt="Imagem Fake" class="fakeTitle">
+                <img src="img/1x1t.png" alt="Imagem Fake" class="fakeText">
+            </div>
+        </div>
+        <div class="col">
+            <div class="box">
+                <img src="img/1x1t.png" alt="Imagem Fake" class="fakeImg">
+                <img src="img/1x1t.png" alt="Imagem Fake" class="fakeTitle">
+                <img src="img/1x1t.png" alt="Imagem Fake" class="fakeText">
+            </div>
+        </div>
+        <div class="col">
+            <div class="box">
+                <img src="img/1x1t.png" alt="Imagem Fake" class="fakeImg">
+                <img src="img/1x1t.png" alt="Imagem Fake" class="fakeTitle">
+                <img src="img/1x1t.png" alt="Imagem Fake" class="fakeText">
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
-        $('header').slideDown('fast');
-        menuOff();
+$('header').slideDown('fast');
+menuOff();
 </script>
