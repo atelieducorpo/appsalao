@@ -1,4 +1,52 @@
-<link rel="stylesheet" href="../css/config.css">
+<style>
+/* EStiliza radio buttons */
+/* Label */
+.btnrb { position: relative; padding-left: 1.3rem; cursor: pointer; user-select: none; }
+/* Oculta radio button do navegador */
+.btnrb input { position: absolute; opacity: 0; cursor: pointer; }
+/* Converte span em um radio button fake */
+.checkmark { position: absolute; top: 0; left: 0; height: 1rem; width: 1rem; background-color: #eee; border-radius: 50%; display: flex; justify-content: center; align-items: center; }
+/* Radio button hover */
+.btnrb:hover input ~ .checkmark { background-color: #ccc; }
+/* Radio button com checked */
+.btnrb input:checked ~ .checkmark { background-color: #2196F3; }
+/* Círculo interno */
+.checkmark:after { content: ""; background: #aaa; width: 6px; height: 6px; border-radius: 50%; }
+/* Círculo interno quando checked */
+.btnrb input:checked ~ .checkmark:after { background: white; }
+
+/* Separador */
+.pageWrap hr {
+    margin: 1rem 0;
+    border: 0;
+    border-bottom: 1px solid grey;
+}
+
+/* Dados do usuário */
+#configUser {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+#configUser p {
+    text-align: left;
+    width: 100%;
+    margin-top: 0;
+}
+#configUser img {
+    width: 6rem;
+    height: 6rem;
+    margin-bottom: 1rem;
+    border-radius: .2rem;
+}
+#configUser span {
+    margin-bottom: .3rem;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+</style>
 
 <h2>
     <a href="#home"><i class="fas fa-fw fa-arrow-left"></i></a>
@@ -8,7 +56,7 @@
 
     <h3>Usuário</h3>
     <div id="configUser"></div>
-    <p class="text-center"><a href="#confLogin" id="confInOut" target="_none" class="btnDefault"><img src="img/googleicon.png" alt="Entrar pelo Google"> Login / Entrar</a></p>
+    <p class="text-center"><a href="#confInOut" id="confInOut" target="_none" class="btnDefault">Login / Entrar</a></p>
 
     <hr>
 
@@ -27,4 +75,54 @@
 
 </div>
 
-<script src="../js/config.js"></script>
+<script>
+
+// Oculta barra superior
+$('header').slideUp('fast');
+
+// Marca o campo correto com o tema correto
+$('input[value=' + conf.get('tema') + ']').attr('checked', true);
+
+// Usuário logado / login
+userLogged();
+
+// Monitora botões do tema
+$(document).on('click', 'input[name=temaBtn]', mudaTema);
+
+// Monitora botão login/logout
+$(document).on('click', '#confInOut', userInOut);
+
+// Troca tema
+function mudaTema(){
+    var tema = $(this).val(); // Obtém o valor do tema selecionado
+    $('main').attr('class', tema); // Aplica a classe do tema selecionado
+    conf.set('tema', tema); // Altera o tema na configuração
+}
+
+// Exibe usuário logado ou permite login
+function userLogged(){
+    var user = conf.get('user');
+    if(user.email === ''){
+        var userView = `<p>Você ainda não fez login!</p><small>Entre com sua conta do Google:</smal>`;
+        $('#confInOut').html('<img src="img/googleicon.png" alt="Entrar pelo Google"> Login / Entrar');
+    } else {
+        abbrName = (user.name.length > 20) ? user.name.substr(0, 20) + '...' : user.name;
+        var userView = `<p>Você está logado(a) como:</p><img src="${user.photo}" alt="${user.name}"><span title="${user.name}">${abbrName}</span><small>${user.name}</small>`;
+        $('#confInOut').html('<i class="fas fa-fw fa-sign-out-alt"></i> Logout / Sair');
+    }
+    $('#configUser').html(userView);
+}
+
+// Entrada / Saída de usuário
+function userInOut(){
+    if(conf.get('user').email === ''){
+        console.log('2) Vou entrar');
+        loginUser();
+    } else {
+        console.log('1) vou sair');
+        logoutUser();
+    }
+    userLogged();
+}
+
+</script>
