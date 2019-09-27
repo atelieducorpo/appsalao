@@ -1,0 +1,47 @@
+/* EStiliza radio buttons */
+/* Label */
+.btnrb { position: relative; padding-left: 1.3rem; cursor: pointer; user-select: none; }
+/* Oculta radio button do navegador */
+.btnrb input { position: absolute; opacity: 0; cursor: pointer; }
+/* Converte span em um radio button fake */
+.checkmark { position: absolute; top: 0; left: 0; height: 1rem; width: 1rem; background-color: #eee; border-radius: 50%; display: flex; justify-content: center; align-items: center; }
+/* Radio button hover */
+.btnrb:hover input ~ .checkmark { background-color: #ccc; }
+/* Radio button com checked */
+.btnrb input:checked ~ .checkmark { background-color: #2196F3; }
+/* Círculo interno */
+.checkmark:after { content: ""; background: #aaa; width: 6px; height: 6px; border-radius: 50%; }
+/* Círculo interno quando checked */
+.btnrb input:checked ~ .checkmark:after { background: white; }
+
+/* Separador */
+.pageWrap hr {
+    margin: 1rem 0;
+    border: 0;
+    border-bottom: 1px solid grey;
+}
+
+/* Dados do usuário */
+#configUser {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+#configUser p {
+    text-align: left;
+    width: 100%;
+    margin-top: 0;
+}
+#configUser img {
+    width: 6rem;
+    height: 6rem;
+    margin-bottom: 1rem;
+    border-radius: .2rem;
+}
+#configUser span {
+    margin-bottom: .3rem;
+    font-weight: bold;
+    font-size: 1.1rem;
+}

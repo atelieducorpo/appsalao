@@ -22,8 +22,13 @@ var app = {
             options.crossDomain = true;
         });
 
-        // Inicializa Firebase
-        conf.fireStart();
+        // Verifica se tem usuário logado
+        firebase.auth().onAuthStateChanged(function(userData) {
+            if (userData) {
+                user = userData;
+                userIn(user); // Mostra usuário logado no tema
+            }
+        });
 
         // Executa App
         app.run();
@@ -36,9 +41,6 @@ var app = {
         // Aplicar tema pré-configurado
         $('main').attr('class', conf.get('tema'));
 
-        // Monitorando usuário logado
-        userStatus();
-
         // Executa tratamento de eventos
         runApp();
     }
@@ -46,8 +48,6 @@ var app = {
 
 // Tratamento de eventos do App
 function runApp(){
-
-    console.log($FB.db);
 
     // Carregar html/home.html
     //$.get('html/contatos.html', function(htmlHome){ /*************************** REMOVER ********************************/
