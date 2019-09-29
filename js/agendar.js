@@ -89,7 +89,7 @@ function processaForm(){
         .then(function(docRef) { // Se gravou no Firebase
             msg = `
 <h3>Olá ${nome[0]}!</h3>
-<p>Seu contato foi enviado para a equipe do Atelie du Corpo.</p>
+<p>Seu serviço foi agendado com sucesso!</p>
 Obrigado...
             `;
             $('#msgFb').html(msg);
