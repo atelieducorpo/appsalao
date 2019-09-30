@@ -1,0 +1,44 @@
+<link rel="stylesheet" href="../css/agendar.css">    
+    <h2>
+        <a href="#home"><i class="fas fa-fw fa-arrow-left"></i></a>
+        <span>Agendamento</span>    
+    </h2>
+    <div class="pageWrap">
+    
+    <div id="msgFb"></div>
+    
+    <form action="#agendar" method="post" id="agendar" target="_none">
+        Preencha o formulário abaixo para entrar em contato com a equipe do 'Atelie du corpo'.
+    
+    <div id="msgErroBox">
+        <div id="msgErro"></div>
+    </div>
+    
+    <p>
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" id="nome" placeholder="Seu nome completo.">
+    </p>
+    <p>
+        <label for="email">E-mail:</label>
+        <input type="text" name="email" id="email" placeholder="Seu e-mail principal.">
+    </p>
+    <p>
+        <label for="email">Tipo de serviço:</label>
+        <input type="text" name="servico" id="servico" placeholder="Tipo de serviço">
+    </p>
+    <p>
+        <label for="assunto">Escolhe a data</label>
+        <input type="date" name="data do serviço" id="dataservico" placeholder="Data do serviço.">
+    </p>
+    <p>
+        <label for="mensagem">Escolhe o horário</label>
+        <input type="time" name="horarioservico" id="horarioservico" placeholder="Horário do servico.">
+    </p>
+    <p>
+        <button class="btnDefault" type="submit" name="enviar" id="enviar">Enviar</button>
+    </p>
+    </form>
+    
+    </div>
+    
+    <script src="../js/agendar.js"></script>

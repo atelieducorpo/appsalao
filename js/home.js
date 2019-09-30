@@ -1,0 +1,2 @@
+$('header').slideDown('fast');
+menuOff();

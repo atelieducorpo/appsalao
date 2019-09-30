@@ -5,9 +5,6 @@ var $FB = {}; // Superglobal do Firebase
 // Construtor de configuração do App
 var conf = {
 
-    // Chave do armazenamento que contém a configuração local do App
-    name : localStorageKeyName,
-
     // Conexão com armazenamento local
     conn : function(){
         return window.localStorage
@@ -15,7 +12,7 @@ var conf = {
 
     // Obtém configurações locais do App
     getAll : function(){
-        return JSON.parse(conf.conn().getItem(this.name)); // Transforma JSON em objeto
+        return JSON.parse(conf.conn().getItem(localStorageKeyName)); // Transforma JSON em objeto
     },
 
     // Obtém uma configuração local do App
@@ -27,13 +24,13 @@ var conf = {
     set : function(key, value){
         config = this.getAll();
         config[key] = value;
-        this.conn().setItem(this.name, JSON.stringify(config));
+        this.conn().setItem(localStorageKeyName, JSON.stringify(config));
     },
 
     // Retorna para as configurações iniciais
     reset : function(){
-        this.conn().removeItem(this.name);
-        this.conn().setItem(this.name, JSON.stringify(initialConfig));
+        this.conn().removeItem(localStorageKeyName);
+        this.conn().setItem(localStorageKeyName, JSON.stringify(initialConfig));
         return initialConfig;
     }
 }
@@ -65,69 +62,66 @@ function menuOff(){
     });
 }
 
-// Identifica usuário logado no menu e na barra superior
-function userStatus(){
-    var user = conf.get('user');
-    if(user.email !== ''){
-        abbrName = (user.name.length > 20) ? user.name.substr(0, 20) + '...' : user.name;
-        $('#headerUser').html(`<img src="${user.photo}" alt="${user.name}" title="Clique para ver seu perfil.">`);
-        $('#headerUser').attr({'href':'https://profiles.google.com/','target':'_blank'});
-        $('#menuProfile a').html(`<img src="${user.photo}" alt="${user.name}" title="Clique para ver seu perfil."><span title="${user.name}">${abbrName}</span>`);
-        $('#menuProfile').show('fast');
-        $('#menuLoginout').html('<i class="fas fa-fw fa-sign-out-alt"></i> Logout / Sair');
-        $('#menuLoginout').attr('href','#logout');
-    } else {
-        $('#headerUser').html('<img src="img/nouser.png" alt="Entrar" title="CLique para entrar">');
-        $('#headerUser').attr({'href':'#login','target':'_none'});
-        $('#menuProfile a').html(`<img src="img/nouser.png" alt="Entrar" title="CLique para entrar"><span>Fazer login</span>`);
-        $('#menuProfile').hide('fast');
-        $('#menuLoginout').html('<i class="fas fa-fw fa-sign-in-alt"></i> Login / Entrar');
-        $('#menuLoginout').attr('href','#login');
-    }
-}
-
-// Faz login de um usuário
+// Login de usuário pelo Firebase Auth
 function loginUser(){
-    /******************* REMOVER * LOGIN * FAKE **********************/
-    var user = {
-        name : 'Joca da Silva Souza de Castro Siriliano Queiróz Javaijunto',
-        email : 'joca@silva.com',
-        photo : 'img/jocasilva.jpg'
-    }
-    conf.set('user', user);
-    userStatus();
-    menuOff();
+    firebase.auth().signInWithRedirect(provider1);
 }
 
-// Faz logout de um usuário
+// Logout de usuário pelo firebase Auth
 function logoutUser(){
-    /******************* REMOVER * LOGOUT * FAKE **********************/
-    var user = {
-        name : '',
-        email : '',
-        photo : ''
-    }
-    conf.set('user', user);
-    userStatus();
-    menuOff();
+    firebase.auth().signOut();
+    history.go(0);
+}
+
+// Mostra no tema quando usuário não está logado
+function noUserIn(){
+
+    // Modifica o header para o default
+    $('#headerUser').html('<img src="img/nouser.png" alt="Entrar" title="CLique para entrar">');
+    $('#headerUser').attr({'href':'#login','target':'_none'});
+
+    // Modifica o menu para o default
+    $('#menuProfile a').html(`<img src="img/nouser.png" alt="Entrar" title="CLique para entrar"><span>Fazer login</span>`);
+    $('#menuProfile').hide('fast');
+    $('#menuLoginout').html('<i class="fas fa-fw fa-sign-in-alt"></i> Login / Entrar');
+    $('#menuLoginout').attr('href','#login');
+}
+
+// Mostra no tema quando usuário está logado
+function userIn(user){
+
+    // Obtém nome de usuário logado abreviado, se necessário
+    abbrName = (user.displayName.length > 20) ? user.displayName.substr(0, 20) + '...' : user.displayName;
+
+    // Mostra usuário no header
+    $('#headerUser').html(`<img src="${user.photoURL}" alt="${user.displayName}" title="Clique para ver seu perfil.">`);
+    $('#headerUser').attr({'href':'https://profiles.google.com/','target':'_blank'});
+
+    // Mostra usuário no menu
+    $('#menuProfile a').html(`<img src="${user.photoURL}" alt="${user.displayName}" title="Clique para ver seu perfil."><span title="${user.displayName}">${abbrName}</span>`);
+    $('#menuProfile').show('fast');
+
+    // Troca menu login por menu logout
+    $('#menuLoginout').html('<i class="fas fa-fw fa-sign-out-alt"></i> Logout / Sair');
+    $('#menuLoginout').attr('href','#logout');
 }
 
 // Obtém a data formatada em YYYY-MM-DD HH:II:SS
 function agoraDb(myDate = ''){
-    if(myDate == '') n = new Date()
-    else n = new Date(myDate);
-    y = n.getFullYear();
-    m = n.getMonth();
-    d = n.getDate();
-    h = n.getHours();
-    i = n.getMinutes();
-    s = n.getSeconds();
-    if(m < 10) m = `0${m}`;
-    if(d < 10) d = `0${d}`;
-    if(h < 10) h = `0${h}`;
-    if(i < 10) i = `0${i}`;
-    if(s < 10) s = `0${s}`;
-    return `${y}-${m}-${d} ${h}:${i}:${s}`;
+    if(myDate == '') n = new Date(); // Obtém a data atual
+    else n = new Date(myDate); // Obtém uma data específica
+    y = n.getFullYear(); // Obtém o ano
+    m = n.getMonth(); // Obtém o mês
+    d = n.getDate(); // Obtém o dia do mês
+    h = n.getHours(); // Obtém as horas
+    i = n.getMinutes(); // Obtém os minutos
+    s = n.getSeconds(); // obtém os segundos
+    if(m < 10) m = `0${m}`; // Lead zeros do mês
+    if(d < 10) d = `0${d}`; // Lead zeros do dia do mês
+    if(h < 10) h = `0${h}`; // Lead zeros das horas
+    if(i < 10) i = `0${i}`; // Lead zeros dos minutos
+    if(s < 10) s = `0${s}`; // Lead zeros dos segundos
+    return `${y}-${m}-${d} ${h}:${i}:${s}`; // Formata saída como YYYY-MM-DD HH:II:SS
 }
 
 // Função padrão para 'sanitizar' os valores dos campos
@@ -136,8 +130,8 @@ function sanitiza(texto) {
 	texto = texto.trim();
 
 	// Limpa espaços duplicados dentro da string
-	while(texto.indexOf('  ') != -1) { 
-		texto = texto.replace('  ', ' ');
+	while(texto.indexOf('  ') != -1) { // Quando achar um espaço duplo
+		texto = texto.replace('  ', ' '); // substitui por um espaço simples
 	}
 
 	// Altera caracteres indesejados(usando expressão regular) 
