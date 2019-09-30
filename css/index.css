@@ -8,6 +8,7 @@
     --body-bg: url('../img/backrground03.jpg') fixed #ddd; /* Imagem ou cor de fundo */
     --link-color: rgb(70, 130, 180); /* Cor padrão dos links */
     --link-color-hover: rgb(255, 69, 0); /* Cor dos links com 'hover' */
+<<<<<<< HEAD
     --header-bg: #e02d2d; /* Cor do fundo do cabeçalho */
     --header-font-color: #fff; /* Cor do título do cabeçalho */
     --header-link-font-color: #c7e2eb; /* Cor dos links do cabeçalho */
@@ -15,6 +16,15 @@
     --menu-font-color: #eee; /* Cor do texto do menu */
     --menu-bg-color-hover: #ddd; /* Cor do fundo do menu em hover/click/touch */
     --menu-font-color-hover: #e02d2d; /* Cor do texto do menu em hover/click/touch */
+=======
+    --header-bg: #00465c; /* Cor do fundo do cabeçalho */
+    --header-font-color: #fff; /* Cor do título do cabeçalho */
+    --header-link-font-color: #c7e2eb; /* Cor dos links do cabeçalho */
+    --menu-bg-color: #006280; /* cor de fundo do menu */
+    --menu-font-color: #eee; /* Cor do texto do menu */
+    --menu-bg-color-hover: #ddd; /* Cor do fundo do menu em hover/click/touch */
+    --menu-font-color-hover: #006280; /* Cor do texto do menu em hover/click/touch */
+>>>>>>> 09f5703a4eca595fde297a9371e60a94023a428d
     --menu-hr: 1px dotted #ddd; /* Estilo de linha do separador do menu */
     --main-bg: rgba(255, 255, 255, .7); /* Cor de fundo do conteúdo, com transparência */
 
@@ -293,10 +303,13 @@ main > h2 a, main > h2 a:hover {
 .btnDefault:hover {
     background: linear-gradient(#cc0000, #330000);
     color: #fff;
+<<<<<<< HEAD
 }
 h3 {
     text-align: center;
 }
 h4 {
     text-align: justify;
+=======
+>>>>>>> 09f5703a4eca595fde297a9371e60a94023a428d
 }
